@@ -2,3 +2,7 @@
 traitementData/venv/
 traitementData/.idea/
 traitementData/__pycache__/
+
+flask/venv/
+flask/.idea/
+flask/__pycache__/

@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from utils import *
+from cleanIMBD import *
 import json
 from imdb import IMDb
 import xmljson
@@ -9,17 +10,21 @@ import config as cfg
 
 if __name__ == "__main__":
 
-    collection1 = MongoClient(cfg.mongoServer).movies.persons
+    # Connexion mongoDB
+    database = MongoClient(cfg.mongoServer).myMovies
+
+    # Connection Neo4J
+
+
+    # Create BIG JSON
     ret = {"allMovies":[]}
 
+    # Connection API
     ia = IMDb()
     base = None
 
-    print("before loop")
-
-    #foreach movie id
+    # Foreach movie id
     for i in range(cfg.idMin, cfg.idMax):
-
         try:
             print(i)
             film = ia.get_movie(i)
@@ -32,14 +37,29 @@ if __name__ == "__main__":
             tmpJSON = json.loads(tmpSTR)
 
             ret["allMovies"].append(tmpJSON)
-            print("before insert collection")
-            insert(collection1, tmpJSON)
-            print("after insert collection")
+            # insert(collection1, tmpJSON)
 
         except:
             print("erreur", i)
 
-
-    with open('films.json', "w") as f:
+    # Save file
+    with open('films_big.json', "w") as f:
         print(json.dumps(ret), file=f)
+
+    cleanDico = createCleanDictionary(ret)
+
+    # Save clean JSON
+    with open("outputs.json", "w") as out:
+        json.dump(cleanDico, out)
+
+
+    for movie in cleanDico["allMovies"]:
+
+        # Insert movie information
+        insertMovieInformation(database, movie)
+
+        # Insert person information
+        insertPersonInformation(database, movie)
+
+
 

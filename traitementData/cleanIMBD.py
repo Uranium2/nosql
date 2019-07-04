@@ -67,6 +67,7 @@ def createCleanDictionary(data):
 
     return newMovies
 
+
 def getUsers(movie):
 
     ## get actors
@@ -116,10 +117,11 @@ def getOldDictionary():
     with open("films.json", "r") as films:
         data = json.load(films)
         return data
-        
 
-data = getOldDictionary()
-dico = createCleanDictionary(data)
-#print(dico)
-with open("output.json", "w") as out:
-    json.dump(dico, out)
+
+if __name__ == "__main__":
+    data = getOldDictionary()
+    dico = createCleanDictionary(data)
+
+    with open("output.json", "w") as out:
+        json.dump(dico, out)

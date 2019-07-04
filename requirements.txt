@@ -1,3 +1,5 @@
 flask==0.10.1
-pymongo==3.8.0
+pymongo==2.7.2
 neo4j-driver==1.7.4
+neo4j-doc-manager==0.1.2
+mongo-connector==2.1

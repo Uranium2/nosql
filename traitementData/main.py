@@ -4,19 +4,21 @@ import json
 from imdb import IMDb
 import xmljson
 from xml.etree.ElementTree import fromstring
+import config as cfg
 
 
 if __name__ == "__main__":
 
-    collection1 = MongoClient('mongodb://localhost:27017/').linkdin.collection1
-
+    collection1 = MongoClient(cfg.mongoServer).movies.persons
     ret = {"allMovies":[]}
 
     ia = IMDb()
     base = None
 
+    print("before loop")
+
     #foreach movie id
-    for i in range(12000, 12500):
+    for i in range(cfg.idMin, cfg.idMax):
 
         try:
             print(i)
@@ -30,7 +32,9 @@ if __name__ == "__main__":
             tmpJSON = json.loads(tmpSTR)
 
             ret["allMovies"].append(tmpJSON)
-            #insert(collection1, tmpJSON)
+            print("before insert collection")
+            insert(collection1, tmpJSON)
+            print("after insert collection")
 
         except:
             print("erreur", i)

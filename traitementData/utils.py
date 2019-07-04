@@ -24,4 +24,9 @@ def insertPersonInformation(database, movie):
 # def add_movie(id):
 #     graph.run("CREATE UNIQUE (a:Movie {id: $id})", id=id)
 
-
+def getIdFromTitle(collection, name):
+    return collection.find_one({"title": name}).get("id")
+        
+    
+def getIdFromName(collection, name):
+    return collection.find_one({"name": name}).get("id")

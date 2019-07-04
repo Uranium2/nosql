@@ -68,6 +68,17 @@ if __name__ == "__main__":
         if graph.evaluate("MATCH (a:MOVIE) WHERE a.id = %s RETURN a" % (movie["id"])) is None:
             graph.run("CREATE (a:MOVIE {id: $id})", id=movie["id"])
 
+        # Insert genre
+        if "genres" in movie:
+            for genre in movie["genres"]:
+                genre = genre.upper()
+                if graph.evaluate("MATCH (a: %s) RETURN a" % genre) is None:
+                    graph.run( "CREATE (a: %s)" % genre.upper())
+
+                    # Create link
+                    if graph.evaluate("MATCH (m:MOVIE)-[j]-(g:%s) WHERE m.id = %s return j" % (genre, movie["id"])) is None:
+                        graph.run("MATCH (m:MOVIE),(g:%s) WHERE m.id = %s CREATE (m)-[:GENRE]->(g)" % (genre, movie["id"]))
+
         # insert Person
         for person in movie["person"]:
             if graph.evaluate("MATCH (a:PERSON) WHERE a.id = %s RETURN a" % (person["id"])) is None:

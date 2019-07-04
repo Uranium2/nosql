@@ -55,6 +55,7 @@ if __name__ == "__main__":
         json.dump(cleanDico, out)
 
 
+    allPersons = []
     for movie in cleanDico["allMovies"]:
 
         # Insert movie information in mongoDB
@@ -63,11 +64,18 @@ if __name__ == "__main__":
         # Insert person information in mongoDB
         insertPersonInformation(database, movie)
 
-        # insertMovie
-        graph.run("CREATE (a:MOVIE {id: $id})", id=movie["id"])
+        # insert Movie
+        if graph.evaluate("MATCH (a:MOVIE) WHERE a.id = %s RETURN a" % (movie["id"])) is None:
+            graph.run("CREATE (a:MOVIE {id: $id})", id=movie["id"])
 
-        # #insertPerson
-        # for person in movie["id"]["person"]:
+        # insert Person
+        for person in movie["person"]:
+            if graph.evaluate("MATCH (a:PERSON) WHERE a.id = %s RETURN a" % (person["id"])) is None:
+                graph.run("CREATE (a:PERSON {id: $id})", id=person["id"])
+
+            # insert Link
+            if graph.evaluate("MATCH (p:PERSON)-[j]-(m:MOVIE) WHERE p.id = %s AND m.id = %s RETURN j" % (person["id"], movie["id"])) is None:
+                graph.run("MATCH (p:PERSON),(m:MOVIE) WHERE p.id = %s AND m.id = %s CREATE (p)-[:%s]->(m)" % (person["id"], movie["id"], person["role"] ))
 
 
 

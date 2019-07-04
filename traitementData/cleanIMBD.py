@@ -97,7 +97,7 @@ def getUsers(movie):
                 tmpDico = {}
                 tmpDico["id"] = movie["movie"][job]["person"]["@id"]
                 tmpDico["name"] = movie["movie"][job]["person"]["name"]["do_"]
-                tmpDico["role"] = job
+                tmpDico["role"] = job.replace("-", "_")
                 tmpPerson.append(tmpDico)       
             elif job in movie["movie"] and type(movie["movie"][job]["person"]) is list:
                 for p in movie["movie"][job]["person"]:
@@ -106,7 +106,7 @@ def getUsers(movie):
                         continue
                     tmpDico["id"] = p["@id"]
                     tmpDico["name"] = p["name"]["do_"]
-                    tmpDico["role"] = job
+                    tmpDico["role"] = job.replace("-", "_")
                     tmpPerson.append(tmpDico) 
         return (tmpPerson)
         

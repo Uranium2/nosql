@@ -13,7 +13,12 @@ def insertMovieInformation(database, movie):
 def insertPersonInformation(database, movie):
 
     #print({key: value for key, value in movie.items() if key == "person"})
-    database.persons.insert({ key:value for key, value in movie.items() if key == "person"})
+    listPerson = { key:value for key, value in movie.items() if key == "person"}["person"]
+
+    for person in listPerson:
+
+        database.persons.update( {"id":person["id"]}, {"$set":person}, upsert=True )
+
 
 
 # def add_movie(id):

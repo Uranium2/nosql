@@ -17,13 +17,23 @@ def index():
 def handle_movie():
     movie_name = request.form['movie']
     print(movie_name)
-    return render_template("result.html")
+    result = { "movies":  [
+                                    {"id":1, "name":"nom1"},
+                                    {"id": 2, "name": "nom2"}
+                                ]
+                    }
+    return render_template("result.html", data=result)
 
 @app.route('/handle_actor/', methods=['POST'])
 def handle_actor():
     actor_name = request.form['actor']
     print(actor_name)
-    return render_template("result.html")
+    result = { "movies":  [
+                                    {"id":1, "name":"nom1"},
+                                    {"id": 2, "name": "nom2"}
+                                ]
+                    }
+    return render_template("result2.html", data=result)
     
 
 if __name__ == "__main__":

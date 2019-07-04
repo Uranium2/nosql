@@ -28,8 +28,8 @@ def handle_movie():
 def handle_actor():
     actor_name = request.form['actor']
     print(actor_name)
-    result = { "movies":  [
-                                    {"id":1, "name":"nom1"},
+    result = { "actors":  [
+                                    {"id":1, "name":"nom1", "job":"job1"},
                                     {"id": 2, "name": "nom2"}
                                 ]
                     }

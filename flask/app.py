@@ -10,7 +10,6 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 @app.route('/')
 def index():
-    print("test")
     return render_template('index.html')
 
 @app.route('/handle_movie/', methods=['POST'])

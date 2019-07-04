@@ -5,16 +5,18 @@ import json
 from imdb import IMDb
 import xmljson
 from xml.etree.ElementTree import fromstring
-import config as cfg
-
+from config import *
+from py2neo import Graph
 
 if __name__ == "__main__":
 
     # Connexion mongoDB
-    database = MongoClient(cfg.mongoServer).myMovies
+    database = MongoClient(mongoServer).myMovies
+    print(database)
 
     # Connection Neo4J
-
+    graph = Graph(uriNeo, password=passwordNeo)
+    graph.schema.create_uniqueness_constraint('Movie', 'Person')
 
     # Create BIG JSON
     ret = {"allMovies":[]}
@@ -24,7 +26,7 @@ if __name__ == "__main__":
     base = None
 
     # Foreach movie id
-    for i in range(cfg.idMin, cfg.idMax):
+    for i in range(idMin, idMax):
         try:
             print(i)
             film = ia.get_movie(i)
@@ -55,11 +57,17 @@ if __name__ == "__main__":
 
     for movie in cleanDico["allMovies"]:
 
-        # Insert movie information
+        # Insert movie information in mongoDB
         insertMovieInformation(database, movie)
 
-        # Insert person information
+        # Insert person information in mongoDB
         insertPersonInformation(database, movie)
+
+        # insertMovie
+        graph.run("CREATE (a:MOVIE {id: $id})", id=movie["id"])
+
+        # #insertPerson
+        # for person in movie["id"]["person"]:
 
 
 

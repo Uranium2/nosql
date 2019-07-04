@@ -16,3 +16,7 @@ def insertPersonInformation(database, movie):
     database.persons.insert({ key:value for key, value in movie.items() if key == "person"})
 
 
+# def add_movie(id):
+#     graph.run("CREATE UNIQUE (a:Movie {id: $id})", id=id)
+
+

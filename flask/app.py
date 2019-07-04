@@ -10,15 +10,17 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 @app.route('/')
 def index():
+    print("test")
     return render_template('index.html')
 
-@app.route('/handle_movie', methods=['POST'])
+@app.route('/handle_movie/', methods=['GET', 'POST'])
 def handle_movie():
+    print("HELOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
     movie_name = request.form['movie']
+    print(movie_name)
+    return str(movie_name)
 
-    return render_template("index.html")
-
-@app.route('/handle_actor', methods=['POST'])
+@app.route('/handle_actor/', methods=['POST'])
 def handle_actor():
     actor_name = request.form['actor']
 

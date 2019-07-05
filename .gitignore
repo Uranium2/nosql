@@ -8,3 +8,4 @@ flask/.idea/
 flask/__pycache__/
 
 traitementData\.venv\
+*\.venv\

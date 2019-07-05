@@ -29,18 +29,16 @@
                     <table class="centered">
                         <thread>
                             <tr>
-                                <th class="center">Actor ID</th>
                                 <th class="center">Actor Name</th>
-                                <th class="center">Job</th>
                             </tr>
                         </thread>
                         <tbody id="tbodyResults">
 
                             {% for model in data["actors"] %}
                             <tr>
-                                <td>{{ model["id"] }}</td>
-                                <td>{{ model["name"] }}</td>
-                                <td>{{ model["job"] }}</td>
+
+                                <td>{{ model }}</td>
+
                             </tr>
                             {% endfor %}
 

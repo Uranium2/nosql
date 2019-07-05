@@ -29,7 +29,6 @@
                     <table class="centered">
                         <thread>
                             <tr>
-                                <th class="center">Movie ID</th>
                                 <th class="center">Movie Name</th>
                             </tr>
                         </thread>
@@ -37,8 +36,9 @@
 
                             {% for model in data["movies"] %}
                             <tr>
-                                <td>{{ model["id"] }}</td>
-                                <td>{{ model["name"] }}</td>
+
+                                <td>{{ model }}</td>
+
                             </tr>
                             {% endfor %}
 

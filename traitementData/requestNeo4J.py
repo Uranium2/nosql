@@ -10,8 +10,7 @@ def getFilms(persons):
     return request
 
 def getNearestPersonWithRole(name, distance, role):
-    #request = "MATCH (o:PERSON{id:" + str(getIdFromName(name)) + "})-[*0.." + str(distance) + "]-(p:PERSON) return p"
-    request = "MATCH (o:PERSON{id:" + str(1) + "})-[:ACTOR*0.." + str(distance) + "]-(p:PERSON) return p"
+    request = "MATCH (o:PERSON{id:" + str(1) + "})-[:" + role + "*0.." + str(distance) + "]-(p:PERSON) return p"
     return request
 
 def getNearestPerson(name, distance):
@@ -22,4 +21,3 @@ def getNearestFilms(name, distance):
     request = "MATCH (o:MOVIE{id:" + str(getIdFromTitle(name)) + "})-[*0.." + str(distance) + "]-(p:MOVIE) return p"
     return request
 
-print(getNearestPersonWithRole("tatane", 2, "ACTOR"))

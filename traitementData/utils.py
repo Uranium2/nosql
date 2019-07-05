@@ -30,3 +30,6 @@ def getIdFromTitle(collection, name):
     
 def getIdFromName(collection, name):
     return collection.find_one({"name": name}).get("id")
+
+def getDocumentById(collection, id):
+    return collection.find_one({"id": id})

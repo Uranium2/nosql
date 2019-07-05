@@ -8,14 +8,14 @@ from xml.etree.ElementTree import fromstring
 from config import *
 from py2neo import Graph
 
-#Instance variables mongoDB
-client = MongoClient('localhost', 27017)
-database = client.myMovies
-movies = database.movies
-persons = database.persons
+
 
 #Get id for a movie
-print(getIdFromTitle(movies, "The Broadway Bride"))
+# print(getIdFromTitle(movies, "The Broadway Bride"))
 
 #Get id for a person
-print(getIdFromName(persons, "Earle Williams"))
+# print(getIdFromName(persons, "Earle Williams"))
+
+#get movie by id
+item = getDocumentById(movies, 12000)
+print(item)

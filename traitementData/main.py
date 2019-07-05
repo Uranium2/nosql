@@ -16,7 +16,6 @@ if __name__ == "__main__":
 
     # Connection Neo4J
     graph = Graph(uriNeo, password=passwordNeo)
-    graph.schema.create_uniqueness_constraint('Movie', 'Person')
 
     # Create BIG JSON
     ret = {"allMovies":[]}
